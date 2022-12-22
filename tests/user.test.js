@@ -18,7 +18,8 @@ describe('POST /api/users', () => {
   it('should create a new user with given username', async () => {
     const response = await request(app)
       .post('/api/users')
-      .send('username=user1');
+      .send({ username: 'user1' })
+      .type('form');
     expect(response.statusCode).toBe(201);
     expect(response.body.username).toEqual('user1');
   });
