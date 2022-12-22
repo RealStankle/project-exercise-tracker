@@ -13,6 +13,6 @@ app.get('/', (_, res) => {
   res.sendFile(path.resolve(__dirname, 'views/index.html'));
 });
 
-app.use('/api', user);
+app.use('/api/users', user);
 
 module.exports = app;
