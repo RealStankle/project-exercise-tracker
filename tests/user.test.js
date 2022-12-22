@@ -6,7 +6,7 @@ const User = require('../src/models/user.model');
 require('dotenv').config();
 
 beforeAll(() => {
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.DB_NAME });
 });
 
 afterAll(async () => {
