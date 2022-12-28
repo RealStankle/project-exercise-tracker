@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
 const addExercise = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    const dateObj = new Date(req.body.date);
+    const dateObj = new Date(req.body.date || new Date());
 
     const logObject = {
       description: req.body.description,
