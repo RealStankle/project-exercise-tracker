@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   createUser,
+  getUsers,
   addExercise,
   getUserLogs,
 } = require('../controllers/user.controller');
@@ -9,6 +10,8 @@ const {
 const router = express.Router();
 
 router.post('/', createUser);
+
+router.get('/', getUsers);
 
 router.post('/:id/exercises', addExercise);
 
