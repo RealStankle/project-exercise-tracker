@@ -26,6 +26,17 @@ describe('POST /api/users', () => {
   });
 });
 
+describe('GET /api/users', () => {
+  it('should return all users', async () => {
+    const response = await request(app).get('/api/users');
+
+    expect(response.statusCode).toBe(200);
+    expect(Array.isArray(response.body)).toBeTruthy();
+    expect(typeof response.body[0].username).toBe('string');
+    expect(typeof response.body[0]._id).toBe('string');
+  });
+});
+
 describe('POST /api/users/:_id/exercises', () => {
   it("should add an exercise to the user's logs", async () => {
     const user = await User.findOne({ username: 'user1' });
