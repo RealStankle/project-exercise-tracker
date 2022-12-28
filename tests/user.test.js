@@ -21,7 +21,8 @@ describe('POST /api/users', () => {
       .send({ username: 'user1' })
       .type('form');
     expect(response.statusCode).toBe(201);
-    expect(response.body.username).toEqual('user1');
+    expect(response.body.username).toBe('user1');
+    expect(typeof response.body._id).toBe('string');
   });
 });
 
@@ -39,10 +40,24 @@ describe('POST /api/users/:_id/exercises', () => {
       .type('form');
 
     expect(response.statusCode).toBe(201);
-    expect(response.body.username).toEqual('user1');
-    expect(response.body.description).toEqual('This is a description.');
-    expect(response.body.date).toEqual('Sun May 13 2012');
+    expect(response.body.username).toBe('user1');
+    expect(response.body.description).toBe('This is a description.');
+    expect(response.body.date).toBe('Sun May 13 2012');
     expect(user.count).toBe(user.log.length);
+  });
+
+  it('should use current date if no date parameter provided', async () => {
+    const user = await User.findOne({ username: 'user1' });
+
+    const response = await request(app)
+      .post(`/api/users/${user.id}/exercises`)
+      .send({
+        description: 'This is a description.',
+        duration: '120',
+      })
+      .type('form');
+
+    expect(response.body.date).toBe(new Date().toDateString());
   });
 });
 
