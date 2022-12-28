@@ -9,6 +9,16 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUsers = async (_, res) => {
+  try {
+    const users = await User.find({}, 'username id');
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 const addExercise = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -67,6 +77,7 @@ const getUserLogs = async (req, res) => {
 
 module.exports = {
   createUser,
+  getUsers,
   addExercise,
   getUserLogs,
 };
